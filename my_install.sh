@@ -2,7 +2,7 @@
 yum install -y  python-pip gmp-devel libffi-devel mpfr-devel libmpc-devel git python-virtualenv python wget python-devel python-zope-interface unzip gnutls-devel gcc gcc-c++ curl python-requests
 pip install twisted appdirs six ipwhois pycrypto pyasn1 pycurl service_identity ipwhois
 yum install -y https://s3.amazonaws.com/aaronsilber/public/authbind-2.1.1-0.1.x86_64.rpm
-adduser -s /bin/false cowrie
+adduser cowrie
 cd ~cowrie
 su cowrie -c "git clone http://github.com/micheloosterhof/cowrie"
 cd cowrie
