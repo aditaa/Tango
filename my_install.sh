@@ -1,6 +1,7 @@
 #!/bin/bash
-yum install -y  python-pip gmp-devel libffi-devel mpfr-devel libmpc-devel git python-virtualenv python wget python-devel python-zope-interface unzip gnutls-devel gcc gcc-c++ curl python-requests
-pip install twisted appdirs six ipwhois pycrypto pyasn1 pycurl service_identity ipwhois
+execdir=`pwd`
+yum install -y  python-pip gmp-devel libffi-devel mpfr-devel libmpc-devel git python-virtualenv python wget python-devel python-zope-interface unzip gnutls-devel gcc gcc-c++ curl python-requests curl-devel
+pip install twisted appdirs six ipwhois pycrypto pyasn1 pycurl service_identity ipwhois configparser
 yum install -y https://s3.amazonaws.com/aaronsilber/public/authbind-2.1.1-0.1.x86_64.rpm
 adduser cowrie
 cd ~cowrie
@@ -9,6 +10,7 @@ cd cowrie
 su cowrie -c "virtualenv cowrie-env"
 su cowrie -c "cp cowrie.cfg.dist cowrie.cfg"
 source cowrie-env/bin/activate
+pip install twisted appdirs six ipwhois pycrypto pyasn1 pycurl service_identity
 pip install -r requirements.txt
 cd data
 su cowrie -c "ssh-keygen -t dsa -b 1024 -f ssh_host_dsa_key -N \"\""
@@ -28,7 +30,7 @@ yum remove -y fail2ban
 read -e -p "[?] Enter Sensor name: (example: hp-US-Las_Vegas-01) " HOST_NAME
 SPLUNK_INDEXER="198.46.230.142:9997"
 KIPPO_LOG_LOCATION='/home/cowrie/cowrie/log/'
-execdir=`pwd`
+cd $execdir
 wget -O /opt/splunkforwarder.tgz 'http://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=6.3.0&product=universalforwarder&filename=splunkforwarder-6.3.0-aa7d4b1ccb80-Linux-x86_64.tgz&wget=true'
 groupadd splunk
 useradd -g splunk splunk -d /home/splunk -s /bin/false
