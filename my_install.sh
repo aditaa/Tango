@@ -24,7 +24,7 @@ sed -i 's/#listen_port = 2222/listen_port = 22/g' cowrie.cfg
 touch /etc/authbind/byport/22
 chown cowrie:cowrie /etc/authbind/byport/22
 chmod 770 /etc/authbind/byport/22
-cat userdb.txt > /home/cowrie/cowrie/data/userdb.txt
+cat $execdir/userdb.txt > /home/cowrie/cowrie/data/userdb.txt
 sed -i "s_logfile = log/cowrie.json_logfile = /var/log/cowrie/cowrie.json_" /home/cowrie/cowrie/cowrie.cfg
 sed -i "s_log_path = log_log_path = /var/log/cowrie_" /home/cowrie/cowrie/cowrie.cfg
 sed -i "s/hostname = svr04/hostname = web02/" /home/cowrie/cowrie/cowrie.cfg
