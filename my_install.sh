@@ -1,7 +1,7 @@
 #!/bin/bash
 execdir=`pwd`
 read -e -p "[?] Enter Sensor name: (example: hp-US-Las_Vegas-01) " HOST_NAME
-yum install -y  python-pip gmp-devel libffi-devel mpfr-devel libmpc-devel git python-virtualenv python wget python-devel python-zope-interface unzip gnutls-devel gcc gcc-c++ curl python-requests curl-devel
+yum install -y openssl-devel python-pip gmp-devel libffi-devel mpfr-devel libmpc-devel git python-virtualenv python wget python-devel python-zope-interface unzip gnutls-devel gcc gcc-c++ curl python-requests curl-devel
 pip install twisted appdirs six ipwhois pycrypto pyasn1 pycurl service_identity ipwhois configparser
 yum install -y https://s3.amazonaws.com/aaronsilber/public/authbind-2.1.1-0.1.x86_64.rpm
 adduser cowrie
