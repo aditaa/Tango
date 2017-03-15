@@ -48,7 +48,7 @@ sudo -u splunk /opt/splunkforwarder/bin/splunk start --accept-license --answer-y
 cp -r "$execdir/tango_input" /opt/splunkforwarder/etc/apps
 cd /opt/splunkforwarder/etc/apps/tango_input/default 
 sed -i "s/test/$HOST_NAME/" inputs.conf
-sed -i "s,/opt/cowrie/log/,/var/log/cowrie/}," inputs.conf
+sed -i "s,/opt/cowrie/log/,/var/log/cowrie/," inputs.conf
 sed -i "s/test/198.46.230.142:9997/" outputs.conf
 chown -R splunk:splunk /opt/splunkforwarder
 /opt/splunkforwarder/bin/splunk restart
