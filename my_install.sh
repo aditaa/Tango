@@ -1,5 +1,6 @@
 #!/bin/bash
 execdir=`pwd`
+read -e -p "[?] Enter Sensor name: (example: hp-US-Las_Vegas-01) " HOST_NAME
 yum install -y  python-pip gmp-devel libffi-devel mpfr-devel libmpc-devel git python-virtualenv python wget python-devel python-zope-interface unzip gnutls-devel gcc gcc-c++ curl python-requests curl-devel
 pip install twisted appdirs six ipwhois pycrypto pyasn1 pycurl service_identity ipwhois configparser
 yum install -y https://s3.amazonaws.com/aaronsilber/public/authbind-2.1.1-0.1.x86_64.rpm
@@ -33,7 +34,6 @@ su cowrie -c "./start.sh cowrie-env"
 deactivate
 service fail2ban stop
 yum remove -y fail2ban
-read -e -p "[?] Enter Sensor name: (example: hp-US-Las_Vegas-01) " HOST_NAME
 cd $execdir
 wget -O /opt/splunkforwarder.tgz 'http://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=6.3.0&product=universalforwarder&filename=splunkforwarder-6.3.0-aa7d4b1ccb80-Linux-x86_64.tgz&wget=true'
 groupadd splunk
