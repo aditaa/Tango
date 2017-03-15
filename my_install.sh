@@ -23,13 +23,17 @@ sed -i 's/#listen_port = 2222/listen_port = 22/g' cowrie.cfg
 touch /etc/authbind/byport/22
 chown cowrie:cowrie /etc/authbind/byport/22
 chmod 770 /etc/authbind/byport/22
+cat userdb.txt > /home/cowrie/cowrie/data/userdb.txt
+sed -i "s_logfile = log/cowrie.json_logfile = /var/log/cowrie/cowrie.json_" /home/cowrie/cowrie/cowrie.cfg
+sed -i "s_log_path = log_log_path = /var/log/cowrie_" /home/cowrie/cowrie/cowrie.cfg
+sed -i "s/hostname = svr04/hostname = web02/" /home/cowrie/cowrie/cowrie.cfg
+mkdir /var/log/cowrie
+chmod 777 /var/log/cowrie
 su cowrie -c "./start.sh cowrie-env"
 deactivate
 service fail2ban stop
 yum remove -y fail2ban
 read -e -p "[?] Enter Sensor name: (example: hp-US-Las_Vegas-01) " HOST_NAME
-SPLUNK_INDEXER="198.46.230.142:9997"
-KIPPO_LOG_LOCATION='/home/cowrie/cowrie/log/'
 cd $execdir
 wget -O /opt/splunkforwarder.tgz 'http://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=6.3.0&product=universalforwarder&filename=splunkforwarder-6.3.0-aa7d4b1ccb80-Linux-x86_64.tgz&wget=true'
 groupadd splunk
@@ -44,8 +48,8 @@ sudo -u splunk /opt/splunkforwarder/bin/splunk start --accept-license --answer-y
 cp -r "$execdir/tango_input" /opt/splunkforwarder/etc/apps
 cd /opt/splunkforwarder/etc/apps/tango_input/default 
 sed -i "s/test/$HOST_NAME/" inputs.conf
-sed -i "s,/opt/cowrie/log/,${KIPPO_LOG_LOCATION}," inputs.conf
-sed -i "s/test/$SPLUNK_INDEXER/" outputs.conf
+sed -i "s,/opt/cowrie/log/,/var/log/cowrie/}," inputs.conf
+sed -i "s/test/198.46.230.142:9997/" outputs.conf
 chown -R splunk:splunk /opt/splunkforwarder
 /opt/splunkforwarder/bin/splunk restart
 
